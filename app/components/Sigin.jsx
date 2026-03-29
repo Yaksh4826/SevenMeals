@@ -5,6 +5,7 @@ import { supabase, supabaseClientConfigError } from "@/app/lib/supabaseClient";
 
 const Sigin = () => {
   const [userEmail, setUserEmail] = useState(null);
+  const [profileName, setProfileName] = useState(null);
   const [statusMessage, setStatusMessage] = useState(
     supabaseClientConfigError ?? ""
   );
@@ -21,7 +22,26 @@ const Sigin = () => {
         return;
       }
 
-      setUserEmail(data.session?.user?.email ?? null);
+      const sessionUser = data.session?.user ?? null;
+      setUserEmail(sessionUser?.email ?? null);
+
+      if (!sessionUser?.id) {
+        setProfileName(null);
+        return;
+      }
+
+      const { data: profileData, error: profileError } = await supabase
+        .from("users")
+        .select("full_name")
+        .eq("id", sessionUser.id)
+        .maybeSingle();
+
+      if (profileError) {
+        setStatusMessage(profileError.message);
+        return;
+      }
+
+      setProfileName(profileData?.full_name ?? null);
     };
 
     loadSession();
@@ -30,6 +50,7 @@ const Sigin = () => {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
       setUserEmail(session?.user?.email ?? null);
+      setProfileName(session?.user?.user_metadata?.full_name ?? null);
     });
 
     return () => subscription.unsubscribe();
@@ -59,6 +80,7 @@ const Sigin = () => {
 
     setStatusMessage("");
     setUserEmail(null);
+    setProfileName(null);
   };
 
   return (
@@ -76,6 +98,11 @@ const Sigin = () => {
           <p className="text-sm text-zinc-700 dark:text-zinc-300">
             Signed in as {userEmail}
           </p>
+          {profileName ? (
+            <p className="text-xs text-zinc-600 dark:text-zinc-400">
+              Name: {profileName}
+            </p>
+          ) : null}
           <button
             type="button"
             onClick={handleSignOut}

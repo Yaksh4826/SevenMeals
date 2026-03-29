@@ -17,6 +17,19 @@ In Supabase Dashboard:
 2. Add redirect URL: `http://localhost:3000`
 3. Save and test sign-in from the app.
 
+## public.users sync
+
+To store every authenticated user in `public.users` with extra app fields, run:
+
+- `supabase/public_users.sql`
+
+This migration:
+
+- creates `public.users`
+- auto-inserts/updates from `auth.users` via trigger (first login included)
+- backfills existing Auth users
+- enables RLS so users can read/update only their own row
+
 ## Getting Started
 
 First, run the development server:
