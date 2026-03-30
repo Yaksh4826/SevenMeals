@@ -1,17 +1,20 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { supabase, supabaseClientConfigError } from "@/app/lib/supabaseClient";
+import { supabase } from "@/app/lib/supabaseClient";
 
 const Sigin = () => {
   const [userEmail, setUserEmail] = useState(null);
   const [profileName, setProfileName] = useState(null);
-  const [statusMessage, setStatusMessage] = useState(
-    supabaseClientConfigError ?? ""
-  );
+  const [statusMessage, setStatusMessage] = useState("");
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    if (!supabase) {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted || !supabase) {
       return;
     }
 
@@ -32,7 +35,7 @@ const Sigin = () => {
 
       const { data: profileData, error: profileError } = await supabase
         .from("users")
-        .select("full_name")
+        .select('name, email')
         .eq("id", sessionUser.id)
         .maybeSingle();
 
@@ -54,7 +57,7 @@ const Sigin = () => {
     });
 
     return () => subscription.unsubscribe();
-  }, []);
+  }, [isMounted]);
 
   const handleGoogleSignIn = async () => {
     if (!supabase) return;
