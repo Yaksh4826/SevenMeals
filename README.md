@@ -3,6 +3,7 @@
 ## Overview
 Seven Meals is a modern web application designed to help users manage their meal plans, grocery lists, and group activities. The application features a responsive navigation bar, user authentication, and integration with Google for seamless sign-in.
 
+![Mocks](./public/Fronted.png)
 ## Features
 - **Responsive Navigation Bar**: A dynamic navigation bar that adapts to scrolling and screen sizes.
 - **Google Sign-In**: Users can log in using their Google accounts.

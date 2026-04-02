@@ -1,5 +1,5 @@
 import React from "react";
-import Sigin from "../components/SigIn";
+import Sigin from "../components/Sigin";
 import { AnimatedLogo } from "../components/AnimatedLogo";
 import { CheckCircle } from "lucide-react";
 const BulletPoints = ({ label }) => {
