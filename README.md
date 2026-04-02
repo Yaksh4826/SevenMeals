@@ -1,66 +1,110 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Seven Meals
 
-## Supabase Google OAuth setup
+## Overview
+Seven Meals is a modern web application designed to help users manage their meal plans, grocery lists, and group activities. The application features a responsive navigation bar, user authentication, and integration with Google for seamless sign-in.
 
-This project now uses Supabase Auth directly (no NextAuth/Auth.js).
+## Features
+- **Responsive Navigation Bar**: A dynamic navigation bar that adapts to scrolling and screen sizes.
+- **Google Sign-In**: Users can log in using their Google accounts.
+- **Group Management**: Create and manage groups for meal planning.(In progress ..)
+- **Meal Plans and Grocery Lists**: Organize your meals and groceries efficiently.(In progress...)
 
-Required `.env` variables:
+## Installation
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd seven_meals
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-```bash
-NEXT_PUBLIC_SUPABASE_URL=your_project_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_project_anon_key
-```
-
-In Supabase Dashboard:
-
-1. Go to `Authentication > Providers > Google` and enable Google.
-2. Add redirect URL: `http://localhost:3000`
-3. Save and test sign-in from the app.
-
-## public.users sync
-
-To store every authenticated user in `public.users` with extra app fields, run:
-
-- `supabase/public_users.sql`
-
-This migration:
-
-- creates `public.users`
-- auto-inserts/updates from `auth.users` via trigger (first login included)
-- backfills existing Auth users
-- enables RLS so users can read/update only their own row
-
-## Getting Started
-
-First, run the development server:
-
+## Development
+To start the development server:
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Build
+To create an optimized production build:
+```bash
+npm run build
+```
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Usage
+- Navigate through the app using the responsive navigation bar.
+- Sign in with Google to access personalized features.
+- Manage your groups, meal plans, and grocery lists.(Incoming)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Technologies Used
+- **Next.js**: Framework for building server-rendered React applications.
+- **React Icons**: For integrating icons like Google.
+- **Tailwind CSS**: Utility-first CSS framework for styling.
+- **Supabase**: Backend-as-a-service for authentication and database management.
 
-## Learn More
+## Project Structure
+```
+seven_meals/
+├── app/
+│   ├── api/
+│   │   ├── [...nextauth]/
+│   │   ├── groups/
+│   │   │   ├── [groupId]/
+│   │   │   │   ├── route.js
+│   │   │   │   ├── join/
+│   │   │   │   │   └── route.js
+│   │   │   │   ├── leave/
+│   │   │   │   │   └── route.js
+│   │   ├── create/
+│   │   │   ├── route.js
+│   │   │   ├── [groupId]/
+│   ├── components/
+│   │   ├── Navbar.jsx
+│   │   ├── SigIn.jsx
+│   │   ├── TextLogo.jsx
+│   │   ├── theme.jsx
+│   ├── dashboard/
+│   │   └── page.jsx
+│   ├── fonts/
+│   ├── lib/
+│   │   └── supabaseClient.js
+│   ├── sigin/
+│   │   └── page.jsx
+├── assets/
+│   ├── logo/
+│   │   └── logo.jsx
+├── components/
+│   ├── shadcn-space/
+│   │   ├── radix/
+│   │   │   ├── blocks/
+│   │   │   │   ├── navbar-01/
+│   │   │   │   │   └── navbar.jsx
+│   ├── ui/
+│   │   ├── button.jsx
+│   │   ├── dropdown-menu.jsx
+│   │   ├── navigation-menu.jsx
+├── context/
+│   └── AuthContext.js
+├── lib/
+│   └── utils.js
+├── public/
+├── supabase/
+│   └── public_users.sql
+├── AGENTS.md
+├── CLAUDE.md
+├── components.json
+├── eslint.config.mjs
+├── jsconfig.json
+├── next.config.mjs
+├── package.json
+├── postcss.config.mjs
+├── README.md
+```
+This structure outlines the organization of the Seven Meals project, including the main application, components, assets, and configuration files.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## License
+This project is licensed under the MIT License.

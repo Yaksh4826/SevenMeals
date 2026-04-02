@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/app/lib/supabaseClient";
-
+import { Button } from "@/components/ui/button";
+import { FcGoogle } from "react-icons/fc";
 const Sigin = () => {
   const [userEmail, setUserEmail] = useState(null);
   const [profileName, setProfileName] = useState(null);
@@ -64,7 +65,7 @@ const Sigin = () => {
 
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
-      options: { redirectTo: `${window.location.origin}/` },
+      options: { redirectTo: `${window.location.origin}/dashboard` },
     });
 
     if (error) {
@@ -88,11 +89,13 @@ const Sigin = () => {
 
   return (
     <div className="flex flex-col items-center gap-3">
+    
       <button
         type="button"
         onClick={handleGoogleSignIn}
-        className="rounded bg-black px-4 py-2 text-white dark:bg-white dark:text-black"
+        className="rounded-full bg-white font-medium flex flex-row gap-2 shadow p-3 px-8 text-sm items-center"
       >
+        <FcGoogle size={26}></FcGoogle>
         Sign in with Google
       </button>
 
@@ -106,13 +109,10 @@ const Sigin = () => {
               Name: {profileName}
             </p>
           ) : null}
-          <button
-            type="button"
-            onClick={handleSignOut}
-            className="rounded border border-zinc-300 px-4 py-2 text-sm dark:border-zinc-700"
-          >
-            Sign out
-          </button>
+      
+          <Button onClick={handleSignOut} className="bg-red-600 text-white">SignOut</Button>
+
+
         </>
       ) : null}
 

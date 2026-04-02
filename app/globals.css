@@ -3,7 +3,9 @@
 @import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
-
+html, body {
+  font-family: var(--font-inter);
+}
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -127,4 +129,27 @@
   html {
     @apply font-sans;
   }
+}
+
+.bg-circle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.bg-circle.a {
+  width: 420px;
+  height: 420px;
+  top: -200px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fef2f2;   /* super light red */
+}
+
+.bg-circle.b {
+  width: 180px;
+  height: 180px;
+  bottom: -60px;
+  right: -40px;
+  background: #fef2f2;
 }
